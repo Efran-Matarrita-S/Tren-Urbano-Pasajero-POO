@@ -6,8 +6,11 @@ package Conceptos;
 
 /**
  *
- * @author matar
+ * @author matar Angie
  */
+
+//Angie cambio probar
+
 public class Precio {
     private String id;
     private String tipo;   // referencia al id del Tipo
