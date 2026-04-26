@@ -1,0 +1,7 @@
+<precios>
+    <precio id="001">
+        <tipo>001</tipo>
+        <precio>7500</precio>
+        <fecha>2026-04-01</fecha>
+    </precio>
+</precios>

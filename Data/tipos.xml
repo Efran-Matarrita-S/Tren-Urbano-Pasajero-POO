@@ -1,0 +1,7 @@
+<tipos>
+    <tipo id="001">
+        <nombre>Mensual</nombre>
+        <descripcion>Tiquete mensual para viajes frecuentes.</descripcion>
+        <imagen>mensual.jpg</imagen>
+    </tipo>
+</tipos>
