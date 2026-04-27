@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <precios>
-    <precio id="001">
+    <precio id="002">
         <tipo>001</tipo>
-        <precio>7500</precio>
+        <precio>7500.0</precio>
         <fecha>2026-04-01</fecha>
     </precio>
 </precios>

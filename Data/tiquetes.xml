@@ -4,4 +4,8 @@
         <nombre>Angie</nombre>
         <precio_id>001</precio_id>
     </tiquete>
+    <tiquete id="002">
+        <nombre>Efran</nombre>
+        <precio_id>002</precio_id>
+    </tiquete>
 </tiquetes>
