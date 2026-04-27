@@ -1,0 +1,25 @@
+Notas sobre el analizador XML utilizado
+
+En este proyecto se utilizó el analizador DOM (Document Object Model) para el manejo de archivos XML.
+
+DOM permite cargar el archivo XML completo en memoria y representarlo como una estructura de nodos. Esto facilita recorrer, consultar, modificar y guardar nuevamente la información del archivo.
+
+Se eligió DOM porque el proyecto trabaja con archivos XML pequeños relacionados con tiquetes, tipos de tiquetes y precios. Por esta razón, cargar todo el documento en memoria no representa un problema para el rendimiento del programa.
+
+Ventajas de DOM:
+- Permite leer el archivo XML completo.
+- Facilita buscar elementos por nombre de etiqueta.
+- Permite modificar datos existentes.
+- Permite crear nuevos elementos.
+- Facilita guardar nuevamente los cambios en el archivo XML.
+- Es adecuado para archivos pequeños y medianos.
+
+Desventajas de DOM:
+- Carga todo el archivo XML en memoria.
+- Puede consumir más recursos si el XML es muy grande.
+- No es la mejor opción para archivos enormes.
+
+Justificación:
+Se utilizó DOM porque la aplicación necesita leer y escribir datos en archivos XML. Además, los archivos del proyecto son pequeños y contienen información sencilla. Por eso, DOM es una opción práctica y fácil de implementar para este proyecto.
+
+En este proyecto, los archivos XML se utilizan únicamente como mecanismo de carga y almacenamiento. La lógica del programa trabaja con objetos Java como Tipo, Precio y Tiquete.
