@@ -1,2 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <tiquetes>
+    <tiquete id="001">
+        <nombre>Angie</nombre>
+        <precio_id>001</precio_id>
+    </tiquete>
 </tiquetes>

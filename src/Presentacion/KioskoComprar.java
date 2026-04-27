@@ -2,6 +2,9 @@ package Presentacion;
 
 import Conceptos.Precio;
 import Conceptos.Tipo;
+import Conceptos.Tiquete;
+import Util.XML_Admin;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class KioskoComprar extends JFrame {
@@ -77,7 +80,7 @@ public class KioskoComprar extends JFrame {
         btnCancelar.addActionListener(e -> dispose());
 
         btnComprar.addActionListener(e -> {
-            String nombre = txtNombre.getText();
+            String nombre = txtNombre.getText().trim();
 
             if (nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(
@@ -89,12 +92,49 @@ public class KioskoComprar extends JFrame {
                 return;
             }
 
+            ArrayList<Tiquete> tiquetes = XML_Admin.cargarTiquetes("Data/tiquetes.xml");
+
+            String nuevoId = generarNuevoId(tiquetes);
+
+            Tiquete nuevoTiquete = new Tiquete(
+                nuevoId,
+                nombre,
+                precio.getId()
+            );
+
+            tiquetes.add(nuevoTiquete);
+
+            XML_Admin.guardarTiquetes(tiquetes, "Data/tiquetes.xml");
+
             JOptionPane.showMessageDialog(
                 this,
-                "Compra registrada (falta guardar en XML)\nComprador: " + nombre,
-                "Éxito",
+                "Compra registrada correctamente.\n"
+                + "Comprador: " + nombre + "\n"
+                + "Tiquete: " + tipo.getNombre() + "\n"
+                + "Precio: ₡" + precio.getPrecio(),
+                "Compra exitosa",
                 JOptionPane.INFORMATION_MESSAGE
             );
+
+            dispose();
         });
+        }
+        private String generarNuevoId(ArrayList<Tiquete> tiquetes) {
+        int mayor = 0;
+
+        for (Tiquete t : tiquetes) {
+            try {
+                int idActual = Integer.parseInt(t.getId());
+                if (idActual > mayor) {
+                    mayor = idActual;
+                }
+            } catch (NumberFormatException ex) {
+                // Si algún ID no es número, se ignora.
+            }
+        }
+
+        int nuevo = mayor + 1;
+
+        return String.format("%03d", nuevo);
     }
 }
