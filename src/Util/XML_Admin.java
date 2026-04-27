@@ -84,26 +84,38 @@ public class XML_Admin {
 
     public static ArrayList<Precio> cargarPrecios(String ruta) {
         ArrayList<Precio> lista = new ArrayList<>();
+
         try {
             File archivo = new File(ruta);
+
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(archivo);
             doc.getDocumentElement().normalize();
 
-            NodeList nodos = doc.getElementsByTagName("precio");
+            NodeList nodos = doc.getDocumentElement().getChildNodes();
+
             for (int i = 0; i < nodos.getLength(); i++) {
-                Element el = (Element) nodos.item(i);
-                String id     = el.getAttribute("id");
-                String tipo   = el.getElementsByTagName("tipo").item(0).getTextContent();
-                double precio = Double.parseDouble(
-                                  el.getElementsByTagName("precio").item(0).getTextContent());
-                String fecha  = el.getElementsByTagName("fecha").item(0).getTextContent();
-                lista.add(new Precio(id, tipo, precio, fecha));
+                Node nodo = nodos.item(i);
+
+                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                    Element el = (Element) nodo;
+
+                    if (el.getTagName().equals("precio")) {
+                        String id = el.getAttribute("id");
+                        String tipo = el.getElementsByTagName("tipo").item(0).getTextContent();
+                        double precio = Double.parseDouble(el.getElementsByTagName("precio").item(0).getTextContent());
+                        String fecha = el.getElementsByTagName("fecha").item(0).getTextContent();
+
+                        lista.add(new Precio(id, tipo, precio, fecha));
+                    }
+                }
             }
+
         } catch (Exception e) {
             System.out.println("Error cargando precios: " + e.getMessage());
         }
+
         return lista;
     }
 

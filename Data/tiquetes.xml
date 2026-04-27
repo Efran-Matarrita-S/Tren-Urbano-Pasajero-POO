@@ -12,4 +12,8 @@
         <nombre>Mariela</nombre>
         <precio_id>002</precio_id>
     </tiquete>
+    <tiquete id="004">
+        <nombre>Mari</nombre>
+        <precio_id>002</precio_id>
+    </tiquete>
 </tiquetes>

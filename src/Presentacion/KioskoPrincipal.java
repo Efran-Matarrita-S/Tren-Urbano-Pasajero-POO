@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,6 +23,8 @@ public class KioskoPrincipal extends javax.swing.JFrame {
      */
     public KioskoPrincipal() {
         initComponents();
+        setSize(900, 650);
+        setLocationRelativeTo(null);
         cargarTiquetesDisponibles();
     }
 
@@ -144,31 +147,40 @@ public class KioskoPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelTiquetes;
     // End of variables declaration//GEN-END:variables
-private void cargarTiquetesDisponibles() {
+
+    private void cargarTiquetesDisponibles() {
     panelTiquetes.removeAll();
 
     ArrayList<Tipo> tipos = XML_Admin.cargarTipos("Data/tipos.xml");
     ArrayList<Precio> precios = XML_Admin.cargarPrecios("Data/precios.xml");
-
     panelTiquetes.setLayout(new GridLayout(0, 2, 10, 10));
 
     for (Precio precio : precios) {
         for (Tipo tipo : tipos) {
             if (precio.getTipo().equals(tipo.getId())) {
 
+                ImageIcon icon = new ImageIcon("Imagenes/" + tipo.getImagen());
+                java.awt.Image img = icon.getImage().getScaledInstance(200, 120, java.awt.Image.SCALE_SMOOTH);
+                ImageIcon iconEscalado = new ImageIcon(img);
+
                 JButton boton = new JButton(
                     "<html><center>"
                     + tipo.getNombre()
                     + "<br>₡" + precio.getPrecio()
-                    + "<br>Fecha: " + precio.getFecha()
-                    + "</center></html>"
+                    + "<br>" + precio.getFecha()
+                    + "</center></html>",
+                    iconEscalado
                 );
+
+                boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+                boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
                 boton.addActionListener(e -> {
                     KioskoComprar ventanaComprar = new KioskoComprar(tipo, precio);
                     ventanaComprar.setLocationRelativeTo(this);
                     ventanaComprar.setVisible(true);
                 });
+
                 panelTiquetes.add(boton);
             }
         }
@@ -176,6 +188,5 @@ private void cargarTiquetesDisponibles() {
 
     panelTiquetes.revalidate();
     panelTiquetes.repaint();
+    }
 }
-}
-

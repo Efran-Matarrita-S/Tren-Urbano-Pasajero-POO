@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <tipos>
+
     <tipo id="001">
-        <nombre>Mensual</nombre>
-        <descripcion>Tiquete mensual para viajes frecuentes.</descripcion>
-        <imagen>mensual.jpg</imagen>
+        <nombre>Diario</nombre>
+        <descripcion>Tiquete válido por 1 día</descripcion>
+        <imagen>diario.png</imagen>
     </tipo>
+
+    <tipo id="002">
+        <nombre>Semanal</nombre>
+        <descripcion>Tiquete válido por 7 días</descripcion>
+        <imagen>semanal.png</imagen>
+    </tipo>
+
+    <tipo id="003">
+        <nombre>Mensual</nombre>
+        <descripcion>Tiquete válido por 30 días</descripcion>
+        <imagen>mensual.png</imagen>
+    </tipo>
+
+    <tipo id="004">
+        <nombre>Estudiante</nombre>
+        <descripcion>Tiquete válido por 22 días</descripcion>
+        <imagen>estudiante.png</imagen>
+    </tipo>
+
 </tipos>
