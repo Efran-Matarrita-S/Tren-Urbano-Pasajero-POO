@@ -19,7 +19,8 @@ public class AdminPrecios extends JFrame {
 
     // Campos superiores
     private JComboBox<String> cmbNombre;
-    private JTextField txtPrecio, txtFecha;
+    private JTextField txtPrecio;
+    private JComboBox<String> cmbAnio, cmbMes, cmbDia;
     private JButton btnNuevo, btnModificar, btnBorrar, btnSalir;
 
     // Tabla
@@ -74,8 +75,24 @@ public class AdminPrecios extends JFrame {
 
         JLabel lFecha = new JLabel("Fecha:");
         lFecha.setBounds(20, 60, 55, 25);
-        txtFecha = new JTextField();
-        txtFecha.setBounds(80, 60, 120, 25);
+
+        cmbAnio = new JComboBox<>();
+        for (int i = 2026; i <= 2035; i++) {
+            cmbAnio.addItem(String.valueOf(i));
+        }
+        cmbAnio.setBounds(80, 60, 80, 25);
+
+        cmbMes = new JComboBox<>();
+        for (int i = 1; i <= 12; i++) {
+            cmbMes.addItem(String.format("%02d", i));
+        }
+        cmbMes.setBounds(165, 60, 60, 25);
+
+        cmbDia = new JComboBox<>();
+        for (int i = 1; i <= 31; i++) {
+            cmbDia.addItem(String.format("%02d", i));
+        }
+        cmbDia.setBounds(230, 60, 60, 25);
 
         btnNuevo = new JButton("Nuevo");
         btnNuevo.setBounds(500, 15, 120, 25);
@@ -88,7 +105,10 @@ public class AdminPrecios extends JFrame {
 
         panelForm.add(lNombre);    panelForm.add(cmbNombre);
         panelForm.add(lPrecio);    panelForm.add(txtPrecio);
-        panelForm.add(lFecha);     panelForm.add(txtFecha);
+        panelForm.add(lFecha);
+        panelForm.add(cmbAnio);
+        panelForm.add(cmbMes);
+        panelForm.add(cmbDia);
         panelForm.add(btnNuevo);
         panelForm.add(btnModificar);
         panelForm.add(btnBorrar);
@@ -109,7 +129,7 @@ public class AdminPrecios extends JFrame {
                 int fila = tabla.getSelectedRow();
                 String nombreTipo = (String) modeloTabla.getValueAt(fila, 1);
                 txtPrecio.setText(String.valueOf(modeloTabla.getValueAt(fila, 2)));
-                txtFecha.setText((String) modeloTabla.getValueAt(fila, 3));
+                seleccionarFecha((String) modeloTabla.getValueAt(fila, 3));
                 cmbNombre.setSelectedItem(nombreTipo);
             }
         });
@@ -176,9 +196,9 @@ public class AdminPrecios extends JFrame {
     private void nuevoPrecio() {
         String nombreTipo = (String) cmbNombre.getSelectedItem();
         String precioStr = txtPrecio.getText().trim();
-        String fecha = txtFecha.getText().trim();
+        String fecha = obtenerFechaSeleccionada();
 
-        if (precioStr.isEmpty() || fecha.isEmpty()) {
+        if (precioStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Precio y Fecha son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -208,7 +228,7 @@ public class AdminPrecios extends JFrame {
             Precio p = listaPrecios.get(fila);
             p.setTipo(buscarIdTipo((String) cmbNombre.getSelectedItem()));
             p.setPrecio(Double.parseDouble(txtPrecio.getText().trim()));
-            p.setFecha(txtFecha.getText().trim());
+            p.setFecha(obtenerFechaSeleccionada());
             XML_Admin.guardarPrecios(listaPrecios, "Data/precios.xml");
             cargarTabla();
             JOptionPane.showMessageDialog(this, "Precio modificado correctamente.");
@@ -235,9 +255,29 @@ public class AdminPrecios extends JFrame {
         }
     }
 
-    private void limpiarCampos() {
-        txtPrecio.setText("");
-        txtFecha.setText("");
-        if (cmbNombre.getItemCount() > 0) cmbNombre.setSelectedIndex(0);
+        private void limpiarCampos() {
+            txtPrecio.setText("");
+            cmbAnio.setSelectedIndex(0);
+            cmbMes.setSelectedIndex(0);
+            cmbDia.setSelectedIndex(0);
+            if (cmbNombre.getItemCount() > 0) cmbNombre.setSelectedIndex(0);
+        }
+        private String obtenerFechaSeleccionada() {
+        return cmbAnio.getSelectedItem() + "-"
+                + cmbMes.getSelectedItem() + "-"
+                + cmbDia.getSelectedItem();
+    }
+
+    private void seleccionarFecha(String fecha) {
+        try {
+            String[] partes = fecha.split("-");
+            cmbAnio.setSelectedItem(partes[0]);
+            cmbMes.setSelectedItem(partes[1]);
+            cmbDia.setSelectedItem(partes[2]);
+        } catch (Exception e) {
+            cmbAnio.setSelectedIndex(0);
+            cmbMes.setSelectedIndex(0);
+            cmbDia.setSelectedIndex(0);
+        }
     }
 }

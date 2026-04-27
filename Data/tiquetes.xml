@@ -8,4 +8,8 @@
         <nombre>Efran</nombre>
         <precio_id>002</precio_id>
     </tiquete>
+    <tiquete id="003">
+        <nombre>Mariela</nombre>
+        <precio_id>002</precio_id>
+    </tiquete>
 </tiquetes>

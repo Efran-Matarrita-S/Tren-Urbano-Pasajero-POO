@@ -5,4 +5,9 @@
         <precio>7500.0</precio>
         <fecha>2026-04-01</fecha>
     </precio>
+    <precio id="003">
+        <tipo>001</tipo>
+        <precio>5000.0</precio>
+        <fecha>2026-04-30</fecha>
+    </precio>
 </precios>
