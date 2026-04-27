@@ -3,6 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Presentacion;
+import Conceptos.Precio;
+import Conceptos.Tipo;
+import Util.XML_Admin;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -140,8 +147,40 @@ public class KioskoPrincipal extends javax.swing.JFrame {
     private void cargarTiquetesDisponibles() {
         panelTiquetes.removeAll();
 
-        javax.swing.JLabel lbl = new javax.swing.JLabel("Aquí se cargarán los tiquetes desde XML");
-        panelTiquetes.add(lbl);
+        ArrayList<Tipo> tipos = XML_Admin.cargarTipos("Data/tipos.xml");
+        ArrayList<Precio> precios = XML_Admin.cargarPrecios("Data/precios.xml");
+
+        panelTiquetes.setLayout(new GridLayout(0, 2, 10, 10));
+
+        for (Precio precio : precios) {
+            for (Tipo tipo : tipos) {
+                if (precio.getTipo().equals(tipo.getId())) {
+
+                    JButton boton = new JButton(
+                        "<html><center>"
+                        + tipo.getNombre()
+                        + "<br>₡" + precio.getPrecio()
+                        + "<br>Fecha: " + precio.getFecha()
+                        + "</center></html>"
+                    );
+
+                    boton.addActionListener(e -> {
+                        JOptionPane.showMessageDialog(
+                            this,
+                            "Tiquete seleccionado:\n"
+                            + "Tipo: " + tipo.getNombre() + "\n"
+                            + "Descripción: " + tipo.getDescripcion() + "\n"
+                            + "Precio: ₡" + precio.getPrecio() + "\n"
+                            + "Fecha: " + precio.getFecha(),
+                            "Detalle del tiquete",
+                            JOptionPane.INFORMATION_MESSAGE
+                        );
+                    });
+
+                    panelTiquetes.add(boton);
+                }
+            }
+        }
 
         panelTiquetes.revalidate();
         panelTiquetes.repaint();
