@@ -16,4 +16,16 @@
         <nombre>Mari</nombre>
         <precio_id>002</precio_id>
     </tiquete>
+    <tiquete id="005">
+        <nombre>Diego</nombre>
+        <precio_id>004</precio_id>
+    </tiquete>
+    <tiquete id="006">
+        <nombre>Pai</nombre>
+        <precio_id>002</precio_id>
+    </tiquete>
+    <tiquete id="007">
+        <nombre>Jessie</nombre>
+        <precio_id>002</precio_id>
+    </tiquete>
 </tiquetes>

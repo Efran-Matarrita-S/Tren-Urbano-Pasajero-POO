@@ -207,24 +207,42 @@ public class AdminTipos extends JFrame {
 
     private void verImagen() {
         String nombreImg = txtImagen.getText().trim();
+
         if (nombreImg.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay imagen especificada.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         File archivo = new File("Imagenes/" + nombreImg);
+
         if (!archivo.exists()) {
             JOptionPane.showMessageDialog(this, "No se encontró el archivo: " + nombreImg, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        ImageIcon icon = new ImageIcon("Imagenes/" + nombreImg);
-        Image img = icon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
-        JLabel lblImg = new JLabel(new ImageIcon(img));
+        JDialog dialogo = new JDialog(this, "Imagen del tiquete", true);
+        dialogo.setSize(900, 620);
+        dialogo.setLocationRelativeTo(this);
+        dialogo.setLayout(new BorderLayout(10, 10));
 
-        JOptionPane.showMessageDialog(this, lblImg, "Imagen", JOptionPane.PLAIN_MESSAGE);
+        ImageIcon icon = new ImageIcon("Imagenes/" + nombreImg);
+        Image img = icon.getImage().getScaledInstance(760, 430, Image.SCALE_SMOOTH);
+        JLabel lblImg = new JLabel(new ImageIcon(img));
+        lblImg.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JButton btnOk = new JButton("OK");
+        btnOk.addActionListener(e -> dialogo.dispose());
+
+        JPanel panelBoton = new JPanel();
+        panelBoton.add(btnOk);
+
+        dialogo.add(lblImg, BorderLayout.CENTER);
+        dialogo.add(panelBoton, BorderLayout.SOUTH);
+
+        dialogo.setVisible(true);
     }
 
+ 
     private void limpiarCampos() {
         txtId.setText("");
         txtNombre.setText("");

@@ -106,17 +106,33 @@ public class KioskoComprar extends JFrame {
 
             XML_Admin.guardarTiquetes(tiquetes, "Data/tiquetes.xml");
 
-            JOptionPane.showMessageDialog(
-                this,
-                "Compra registrada correctamente.\n"
-                + "Comprador: " + nombre + "\n"
-                + "Tiquete: " + tipo.getNombre() + "\n"
-                + "Precio: ₡" + precio.getPrecio(),
-                "Compra exitosa",
-                JOptionPane.INFORMATION_MESSAGE
+            ImageIcon icon = new ImageIcon("Imagenes/" + tipo.getImagen());
+            java.awt.Image img = icon.getImage().getScaledInstance(330, 185, java.awt.Image.SCALE_SMOOTH);            ImageIcon iconEscalado = new ImageIcon(img);
+
+            JLabel lblImagen = new JLabel(iconEscalado);
+            lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+
+            JLabel lblTexto = new JLabel(
+                "<html><center>"
+                + "<b>Compra registrada correctamente.</b><br><br>"
+                + "Comprador: " + nombre + "<br>"
+                + "Tiquete: " + tipo.getNombre() + "<br>"
+                + "Precio: ₡" + precio.getPrecio()
+                + "</center></html>"
             );
 
-            dispose();
+            JPanel panelMensaje = new JPanel();
+            panelMensaje.setLayout(new java.awt.BorderLayout(10, 10));
+            panelMensaje.add(lblImagen, java.awt.BorderLayout.NORTH);
+            panelMensaje.add(lblTexto, java.awt.BorderLayout.CENTER);
+
+            JOptionPane.showMessageDialog(
+                this,
+                panelMensaje,
+                "Compra exitosa",
+                JOptionPane.PLAIN_MESSAGE
+            );
+            dispose();  
         });
         }
         private String generarNuevoId(ArrayList<Tiquete> tiquetes) {
